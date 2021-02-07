@@ -1,0 +1,29 @@
+version: "3.7"
+
+# Start my own docker hub repo
+# can be accessed by going to http://localhost:5000/v2/_catalog
+services:
+  my-repo-hub:
+      container_name: my-repo-hub
+      image: registry:latest
+      ports:
+        - "5000:5000"
+      restart:
+          always
+
+
+
+  # sample:
+    # container_name: sample
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # volumes: 
+    #   - ".:/app"
+    #   - "/app/node_modules"
+    # ports:
+    #   - 3001:3000
+    # environment:
+    #   - CHOKIDAR_USEPOLLING=true # Enables hot reloading
+  
+  
