@@ -1,0 +1,273 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
+PATH=$HOME/bin:/usr/local/bin:$PATH
+PATH=$PATH:~/bin
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/Matthew.Kavanagh/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
+# ZSH_THEME="random"
+# ZSH_THEME="jonathan"
+# ZSH_THEME="amuse"
+ZSH_THEME="suvash" #<- this is my default
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="awesomepanda"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="spaceship" 
+
+plugins=(
+     git
+     zsh-autosuggestions
+)
+
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit
+compinit
+
+source $ZSH/oh-my-zsh.sh
+
+alias matt="echo matt hello"
+
+ #####          
+#     # # ##### 
+#       #   #   
+#  #### #   #   
+#     # #   #   
+#     # #   #   
+ #####  #   #   
+alias ga='git add .'
+alias gs='git status'
+
+
+
+#######  #####  #     # 
+     #  #     # #     # 
+    #   #       #     # 
+   #     #####  ####### 
+  #           # #     # 
+ #      #     # #     # 
+#######  #####  #     #
+alias zsh-show-config='code ~/.zshrc'
+alias zsh-settings='code ~/.zshrc'
+
+alias zsh-reboot='source ~/.zshrc'
+alias zsh-reload='source ~/.zshrc'
+alias zsh-restart='source ~/.zshrc'
+
+alias sz='source ~/.zshrc'
+
+alias betdev='clear; code ~/Work/betdev; log-app'
+alias work='cd  ~/Work'
+
+
+
+alias ipconfig-w='ipconfig getifaddr en0'
+alias ipconfig-e='ifconfig getifaddr en5'
+
+
+
+alias cyt="clear && yarn test"
+alias cyj="clear && yarn jest"
+
+alias lg2='ssh mka01@gueagw02.skybet.net'
+alias ln2='ssh mka01@npsgw02.skybet.net'
+
+alias start-hack="docker run -it --init --rm jturpin/hollywood hollywood"
+
+# Jump boxes
+alias npsgw02="ssh mka01@npsgw02"
+
+alias go="clear && yarn dev"
+alias yarn-dev="clear && run-dev"
+
+. "/Users/Matthew.Kavanagh/Work/cosmos/completion"
+. $(brew --prefix asdf)/asdf.sh
+
+
+. "/Users/Matthew.Kavanagh/Work/cosmos/completion"
+
+#     #                      
+#  #  #  ####  #####  #    # 
+#  #  # #    # #    # #   #  
+#  #  # #    # #    # ####   
+#  #  # #    # #####  #  #   
+#  #  # #    # #   #  #   #  
+ ## ##   ####  #    # #    # 
+# Work quick links
+alias cd-mbet='~/Work/betdev/application/tiny/Mbet'
+alias cd-client='~/Work/betdev/application/tiny/Mbet/client'
+alias run-dev='cd ~/Work/betdev/application/tiny/Mbet/Client && yarn dev'
+
+# Logs
+alias log-app='clear; cosmos logs app | grep ERR'
+
+# Cosmos
+alias cosmos-start='cosmos up website'
+alias cosmos-stop='cosmos down all'
+# alias cosmos-restart='cosmos down all cosmos up website'
+
+# alias pscli='~/bin/pscli '
+alias splat='rm -rf /work/betdev/application/public/assets'
+alias phptest='~/Work/betdev/ci/run-container.sh "phpunit.sh tiny"'
+                              
+
+######                                     
+#     #  ####   ####  #    # ###### #####  
+#     # #    # #    # #   #  #      #    # 
+#     # #    # #      ####   #####  #    # 
+#     # #    # #      #  #   #      #####  
+#     # #    # #    # #   #  #      #   #  
+######   ####   ####  #    # ###### #    #
+alias dc="docker compose"
+alias dcu="clear && docker compose up -d"
+alias dcd="docker compose down"
+alias dcl="docker compose logs -f"
+alias dis=" clear && docker images"
+alias di=" clear && docker image"
+alias dps=" clear && docker ps"
+alias dvs=" clear && docker volume ls"
+alias des=" clear && docker ps"
+alias dns=" clear && docker network ls"
+alias dpse=" clear && docker ps -f 'status=exited'"
+alias dpsa=" clear && docker ps --all"
+
+#    #                                                               
+#   #  #    # #####  ###### #####  #    # ###### ##### ######  ####  
+#  #   #    # #    # #      #    # ##   # #        #   #      #      
+###    #    # #####  #####  #    # # #  # #####    #   #####   ####  
+#  #   #    # #    # #      #####  #  # # #        #   #           # 
+#   #  #    # #    # #      #   #  #   ## #        #   #      #    # 
+#    #  ####  #####  ###### #    # #    # ######   #   ######  ####  
+alias k='kubectl '
+alias kad="kubectl apply -f deployment.yaml"
+alias kdd="clear && kubectl delete deployment"
+alias kds="clear && kubectl delete service"
+alias kgp='clear && kubectl get pods'
+alias kdp="clear && kubectl describe pods"
+alias kgpw="clear && kubectl get pods --watch"
+alias kga="clear && kubectl get all"
+alias kgaa="clear && kubectl get all --all-namespaces"
+alias kgn="clear && kubectl get nodes"
+alias gka="clear && kubectl get all"
+alias kgs='clear && kubectl get service'
+# alias ksn="clear && kubectl config set-context --current --namespace=" # Nees to pass the namespace as an argument (Look at tommys aliases)
+
+
+alias ls='clear && ls'
+
+# ZSH_THEME="pure"
+
+# Liked Themes
+# takashiyoshida
+# ys
+# suvash
+# Phillips
+
+# source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+# echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+
+
+
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
