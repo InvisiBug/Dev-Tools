@@ -7,6 +7,7 @@
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
 PATH=$PATH:~/bin
+PATH=$PATH:/Users/Matthew.Kavanagh/.asdf/installs/nodejs/14.16.0/.npm/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/Matthew.Kavanagh/.oh-my-zsh"
@@ -25,9 +26,45 @@ ZSH_THEME="suvash" #<- this is my default
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="spaceship" 
 
+# # ORDER
+# SPACESHIP_PROMPT_ORDER=(
+#   time
+#   user
+#   host
+#   dir
+#   git
+#   hg
+#   package
+#   node
+#   ruby
+#   elixir
+#   xcode
+#   swift
+#   golang
+#   php
+#   rust
+#   julia
+#   docker
+#   aws
+#   venv
+#   conda
+#   pyenv
+#   dotnet
+#   ember
+#   kubecontext
+#   battery
+#   exec_time
+#   line_sep
+#   vi_mode
+#   jobs
+#   exit_code
+#   char
+# )
+
 plugins=(
      git
      zsh-autosuggestions
+     
 )
 
 # append completions to fpath
@@ -49,6 +86,10 @@ alias matt="echo matt hello"
  #####  #   #   
 alias ga='git add .'
 alias gs='git status'
+alias gp='git push'
+alias gpf='git push -f'
+
+
 
 
 
@@ -111,15 +152,15 @@ alias cd-client='~/Work/betdev/application/tiny/Mbet/client'
 alias run-dev='cd ~/Work/betdev/application/tiny/Mbet/Client && yarn dev'
 
 # Logs
-alias log-app='clear; cosmos logs app | grep ERR'
+alias log-app='clear; cosmos logs app | grep ERR -a3'
 
 # Cosmos
-alias cosmos-start='cosmos up website'
-alias cosmos-stop='cosmos down all'
+alias cuw='cosmos up website'
+alias cda='cosmos down all'
 # alias cosmos-restart='cosmos down all cosmos up website'
 
 # alias pscli='~/bin/pscli '
-alias splat='rm -rf /work/betdev/application/public/assets'
+alias splat='rm -rf ~/work/betdev/application/public/assets'
 alias phptest='~/Work/betdev/ci/run-container.sh "phpunit.sh tiny"'
                               
 
@@ -134,8 +175,9 @@ alias dc="docker compose"
 alias dcu="clear && docker compose up -d"
 alias dcd="docker compose down"
 alias dcl="docker compose logs -f"
-alias dis=" clear && docker images"
-alias di=" clear && docker image"
+alias dis="clear && docker images"
+alias di="clear && docker image"
+alias dl="clear && docker logs"
 alias dps=" clear && docker ps"
 alias dvs=" clear && docker volume ls"
 alias des=" clear && docker ps"
@@ -143,29 +185,79 @@ alias dns=" clear && docker network ls"
 alias dpse=" clear && docker ps -f 'status=exited'"
 alias dpsa=" clear && docker ps --all"
 
+
 #    #                                                               
-#   #  #    # #####  ###### #####  #    # ###### ##### ######  ####  
-#  #   #    # #    # #      #    # ##   # #        #   #      #      
-###    #    # #####  #####  #    # # #  # #####    #   #####   ####  
-#  #   #    # #    # #      #####  #  # # #        #   #           # 
-#   #  #    # #    # #      #   #  #   ## #        #   #      #    # 
-#    #  ####  #####  ###### #    # #    # ######   #   ######  ####  
+#   #  #    # #####  ###### #####  #    # ###### ##### ######  ####
+#  #   #    # #    # #      #    # ##   # #        #   #      #
+###    #    # #####  #####  #    # # #  # #####    #   #####   ####
+#  #   #    # #    # #      #####  #  # # #        #   #           #
+#   #  #    # #    # #      #   #  #   ## #        #   #      #    #
+#    #  ####  #####  ###### #    # #    # ######   #   ######  ####
 alias k='kubectl '
 alias kad="kubectl apply -f deployment.yaml"
-alias kdd="clear && kubectl delete deployment"
-alias kds="clear && kubectl delete service"
-alias kgp='clear && kubectl get pods'
+alias kadf="kubectl apply -f kube"
+alias pkl="pscli kubectl login"
+
 alias kdp="clear && kubectl describe pods"
-alias kgpw="clear && kubectl get pods --watch"
-alias kga="clear && kubectl get all"
-alias kgaa="clear && kubectl get all --all-namespaces"
+alias kds="clear && kubectl describe service"
+alias kdcm="clear && kubectl describe configmap"
+
+alias kddd="clear && kubectl delete deployment"
+alias kdds="clear && kubectl delete service"
+alias kddp="cleat && kubectl delete pod"
+
+alias kl='kubectl logs'
+alias kli='clear && k logs ingress-nginx-controller-8cf5559f8-dmsnd -n ingress-nginx -f --tail=10'
+
+alias kga="clear && kubectl get pods,service,deployment,ingress,configmap"
+alias kgaa="clear && kubectl get pods,service,deployment,ingress,configmap --all-namespaces"
+alias kgaaw="clear && watch kubectl get pods,service,deployment,ingress,configmap --all-namespaces"
+alias kgp='clear && kubectl get pods'
+alias kgpa='clear && kubectl get pods --all-namespaces'
+alias kgpaw='clear && watch kubectl get pods --all-namespaces'
+alias kgpw="clear && watch kubectl get pods"
+
+alias kge="clear && kubectl get events"
+alias kgea="clear && kubectl get events --all-namespaces"
+
+alias kgcm="clear && kubectl get configmaps"
 alias kgn="clear && kubectl get nodes"
-alias gka="clear && kubectl get all"
+alias gka="clear && kubectl get pods,service,deployment,replicaset,ingress,configmap"
+alias kgr="clear && kubectl get replicasets"
 alias kgs='clear && kubectl get service'
+alias kgcert="clear && kubectl get certificates"
+alias kgsa='clear && kubectl get service --all-namespaces'
+alias kgip="clear && kgs --all-namespaces | grep 192"
+alias kglb="clear && kgs --all-namespaces | grep LoadBalancer"
+alias kgi='clear && kubectl get ingress'
+alias kgd='clear && kubectl get deployments'
 # alias ksn="clear && kubectl config set-context --current --namespace=" # Nees to pass the namespace as an argument (Look at tommys aliases)
 
 
+#     #                      
+#     # ###### #      #    # 
+#     # #      #      ##  ## 
+####### #####  #      # ## # 
+#     # #      #      #    # 
+#     # #      #      #    # 
+#     # ###### ###### #    # 
+alias hla='clear && helm list --all-namespaces'
+alias hdu='clear && helm dependency update . '
+# alias hrw='clear && helm repo remove'
+
+                              
+
+
+
+######                                         #####
+#     #   ##   #    # #####   ####  #    #    #     # #    # # #####
+#     #  #  #  ##   # #    # #    # ##  ##    #       #    # #   #
+######  #    # # #  # #    # #    # # ## #     #####  ###### #   #
+#   #   ###### #  # # #    # #    # #    #          # #    # #   #
+#    #  #    # #   ## #    # #    # #    #    #     # #    # #   #
+#     # #    # #    # #####   ####  #    #     #####  #    # #   #
 alias ls='clear && ls'
+alias psuh='push'
 
 # ZSH_THEME="pure"
 
