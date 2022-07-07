@@ -168,7 +168,7 @@ alias phptest='~/Work/betdev/ci/run-container.sh "phpunit.sh tiny"'
 #     #  ####   ####  #    # ###### #####  
 #     # #    # #    # #   #  #      #    # 
 #     # #    # #      ####   #####  #    # 
-#     # #    # #      #  #   #      #####  
+#     # #    # #      #  #   #      #####
 #     # #    # #    # #   #  #      #   #  
 ######   ####   ####  #    # ###### #    #
 alias dc="docker compose"
@@ -258,6 +258,41 @@ alias hdu='clear && helm dependency update . '
 #     # #    # #    # #####   ####  #    #     #####  #    # #   #
 alias ls='clear && ls'
 alias psuh='push'
+
+
+function get-buildabet-events () {
+	if [ $# -eq 0 ]
+		then
+			echo "Test4 BuildABet events"
+			curl-buildabet 'https://events.test-aws.test4.skybet.com/graphql' 
+			return
+		fi
+	if [ $1 = "staging" ]
+		then
+			echo "Staging BuildABet events"
+			curl-buildabet 'https://events.test-aws.staging.skybet.com/graphql' 
+		fi
+	if [ $1 = "live" ]
+		then 
+			echo "Live BuildABet events"
+			curl-buildabet 'https://events.green-1-aws.live.skybet.com/graphql' 
+		fi
+
+}
+function curl-buildabet () {
+	if [ $# -eq 0 ]
+	then
+		echo $fg[red]"Error: Please supply url"$fg[white]
+		return 1
+	fi
+	curl $1 \
+		 -H 'Accept-Encoding: gzip, deflate, br' \
+		 -H 'Content-Type: application/json' \
+		 -H 'Accept: application/json' \
+		 -H 'X-Consumer-ID: playground' \
+		 --data-binary '{"query":"query test($after: DateTime!) {\n  events(\n    filter: {\n      HAS: [markets]\n      buildable: true\n      status: { displayable: true }\n      startTime: { AFTER: $after }\n    }\n  ) {\n    eventId\n    markets(filter: { HAS: [outcomes], buildable: true })  {\n      id\n      outcomes(filter: { buildable: true, cid: { EXISTS: true } })  {\n        outcomeId\n      }\n    }\n  }\n}\n","variables":{"after":"'"$(date -u +"%Y-%m-%dT00:00:00.001Z")"'"}}' --compressed | \
+		    python2 -c "import sys, json; print [a['eventId'] for a in json.load(sys.stdin)['data']['events'] if len(a['markets']) > 2 ] "
+}
 
 # ZSH_THEME="pure"
 
